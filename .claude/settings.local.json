@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(claude mcp:*)",
+      "Bash(\"/Users/barataotecnologia/Library/Application Support/Claude/claude-code/2.1.92/claude.app/Contents/MacOS/claude\" mcp add magic --scope user --env API_KEY=\"4ab4c105a0b5594cb69702e682301fe41e8a4bf659c9f738144407393b6cf021\" -- npx -y @21st-dev/magic@latest)",
+      "WebFetch(domain:ghostgaming.com)",
+      "WebFetch(domain:x.com)",
+      "WebSearch",
+      "WebFetch(domain:liquipedia.net)",
+      "WebFetch(domain:www.instagram.com)",
+      "WebFetch(domain:store.ghostgaming.com)",
+      "Bash(gh auth:*)"
+    ]
+  }
+}
