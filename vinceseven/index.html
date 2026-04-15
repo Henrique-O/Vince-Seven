@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vince Seven Esports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;500;600;700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,700&family=DM+Sans:wght@300;400;500;700&family=Epilogue:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black:   #000000;
+      --dark:    #191919;
+      --accent:  #d600f8;
+      --light:   #ececec;
+      --white:   #ffffff;
+      --accent-dim: rgba(214,0,248,.15);
+      --accent-glow: rgba(214,0,248,.3);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    ::selection { background: var(--accent); color: #fff; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+    /* ─── NAVBAR ─────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 900;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px;
+      height: 70px;
+      background: rgba(0,0,0,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: background .3s;
+    }
+    #nav.solid { background: #000; }
+    .nav-logo {
+      font-family: 'Antonio', sans-serif;
+      font-size: 1.6rem; font-weight: 700;
+      letter-spacing: .06em;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo .hex {
+      width: 36px; height: 36px;
+      background: var(--accent);
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .8rem; color: #fff; font-weight: 900;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .78rem; font-weight: 600;
+      letter-spacing: .09em; text-transform: uppercase;
+      color: var(--light);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-store {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .78rem; font-weight: 700;
+      letter-spacing: .09em; text-transform: uppercase;
+      color: var(--white);
+      padding: 9px 22px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.3);
+      clip-path: polygon(8% 0%,100% 0%,92% 100%,0% 100%);
+      transition: background .2s, border-color .2s;
+    }
+    .nav-store:hover { background: var(--accent); border-color: var(--accent); }
+
+    /* hamburger */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--white); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile menu */
+    .nav-mobile {
+      display: none; position: fixed; top: 70px; left: 0; width: 100%; z-index: 890;
+      background: #000; border-bottom: 1px solid rgba(255,255,255,.08);
+      flex-direction: column; padding: 20px 28px 28px; gap: 16px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .88rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--light); padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      transition: color .2s;
+    }
+    .nav-mobile a:hover { color: var(--white); }
+
+    /* ─── HERO ───────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 80px 80px;
+      position: relative; overflow: hidden;
+      background: var(--black);
+    }
+    .hero-diagonal {
+      position: absolute; top: 0; right: -8%;
+      width: 55%; height: 100%;
+      background: var(--dark);
+      clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
+      z-index: 0;
+    }
+    .hero-diagonal-accent {
+      position: absolute; top: 0; right: -8%;
+      width: 55%; height: 100%;
+      background: linear-gradient(135deg, rgba(214,0,248,.12) 0%, transparent 60%);
+      clip-path: polygon(18% 0%, 100% 0%, 100% 100%, 0% 100%);
+      z-index: 1;
+    }
+    .hero-img-bg {
+      position: absolute; top: 0; right: 0;
+      width: 52%; height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
+    }
+    .hero-img-bg-inner {
+      width: 100%; height: 100%;
+      background:
+        radial-gradient(ellipse 70% 60% at 60% 40%, rgba(214,0,248,.18) 0%, transparent 70%),
+        linear-gradient(135deg, #1a001e 0%, #0d000f 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 24px;
+    }
+    .hero-gfx {
+      position: relative; width: 240px; height: 240px;
+    }
+    .hero-gfx-hex {
+      width: 100%; height: 100%;
+      background: rgba(214,0,248,.12);
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Antonio', sans-serif;
+      font-size: 5rem; font-weight: 700;
+      color: rgba(214,0,248,.5);
+      animation: pulse-hex 3s ease-in-out infinite;
+    }
+    @keyframes pulse-hex {
+      0%,100% { box-shadow: 0 0 0 rgba(214,0,248,0); }
+      50% { filter: drop-shadow(0 0 40px rgba(214,0,248,.3)); }
+    }
+    .hero-gfx-ring {
+      position: absolute; inset: -20px;
+      border: 1px solid rgba(214,0,248,.2);
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      animation: rotate-ring 8s linear infinite;
+    }
+    @keyframes rotate-ring { to { transform: rotate(360deg); } }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 600px;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-title em {
+      font-style: italic;
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 3rem);
+      font-weight: 300;
+      letter-spacing: .04em;
+      text-transform: lowercase;
+      display: block;
+      color: var(--light);
+    }
+    .hero-title strong { color: var(--accent); }
+    .hero-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .95rem; font-weight: 400;
+      color: var(--light);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 36px;
+    }
+    .hero-sub ul { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+    .hero-sub ul li { display: flex; align-items: flex-start; gap: 10px; }
+    .hero-sub ul li::before {
+      content: '—'; color: var(--accent); flex-shrink: 0; margin-top: 1px;
+    }
+    .btn-diag {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .8rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--white);
+      padding: 14px 36px;
+      background: var(--accent);
+      clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+      transition: background .2s, transform .15s;
+      cursor: pointer; border: none;
+    }
+    .btn-diag:hover { background: #bf00df; transform: translateY(-2px); }
+    .btn-diag-outline {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .8rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--white);
+      padding: 13px 36px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.35);
+      clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+      transition: background .2s, border-color .2s, transform .15s;
+      cursor: pointer;
+    }
+    .btn-diag-outline:hover {
+      background: rgba(255,255,255,.08);
+      border-color: var(--white);
+      transform: translateY(-2px);
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    /* ─── SECTION BASE ───────────────────────── */
+    .section-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .section-two-col.reverse { direction: rtl; }
+    .section-two-col.reverse > * { direction: ltr; }
+    .col-text {
+      background: var(--black);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 80px 72px;
+    }
+    .col-text.dark { background: var(--dark); }
+    .col-img {
+      position: relative; overflow: hidden;
+      min-height: 420px;
+    }
+    .col-img-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* Placeholder art for each section */
+    .col-img-art {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 20px;
+    }
+    .col-img-art .art-icon { font-size: 6rem; line-height: 1; }
+    .col-img-art .art-label {
+      font-family: 'Antonio', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(255,255,255,.2);
+    }
+
+    .eyebrow {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+    .sec-title {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .sec-body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .92rem; font-weight: 400;
+      color: var(--light);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .sec-stat {
+      font-family: 'Antonio', sans-serif;
+      font-size: 3rem; font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .sec-stat-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .78rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--light);
+      margin-bottom: 24px;
+    }
+
+    /* ─── FULL-WIDTH SECTION ─────────────────── */
+    .section-full {
+      position: relative;
+      min-height: 500px;
+      display: flex; align-items: flex-end;
+      padding: 80px;
+      overflow: hidden;
+    }
+    .section-full-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+    }
+    .section-full-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.95) 0%, rgba(0,0,0,.4) 50%, transparent 100%);
+      z-index: 1;
+    }
+    .section-full-content { position: relative; z-index: 2; max-width: 700px; }
+
+    /* ─── ROSTER ─────────────────────────────── */
+    #roster {
+      background: var(--dark);
+      padding: 100px 80px;
+    }
+    .roster-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .roster-header h2 {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700; text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 12px;
+    }
+    .roster-header h2 em {
+      font-style: normal; color: var(--accent);
+    }
+    .roster-header p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem; color: var(--light);
+      max-width: 480px; margin: 0 auto; line-height: 1.7;
+    }
+    .roster-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .roster-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+      background: var(--black);
+    }
+    .roster-card-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .4s;
+    }
+    .roster-card:hover .roster-card-bg { transform: scale(1.05); }
+    .roster-card-avatar {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 12px;
+    }
+    .roster-card-avatar .av-hex {
+      width: 100px; height: 100px;
+      background: linear-gradient(135deg, rgba(214,0,248,.2), rgba(214,0,248,.05));
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Antonio', sans-serif;
+      font-size: 2rem; font-weight: 700;
+      color: rgba(214,0,248,.6);
+      transition: background .3s;
+    }
+    .roster-card:hover .av-hex { background: linear-gradient(135deg, rgba(214,0,248,.4), rgba(214,0,248,.15)); }
+    .roster-card-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.95) 0%, transparent 100%);
+      padding: 24px 20px 20px;
+      transform: translateY(4px);
+      transition: transform .3s;
+    }
+    .roster-card:hover .roster-card-overlay { transform: translateY(0); }
+    .roster-card-nick {
+      font-family: 'Antonio', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+    }
+    .roster-card-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); margin-top: 4px;
+    }
+    .roster-card-border {
+      position: absolute; inset: 0;
+      border: 1px solid rgba(255,255,255,.04);
+      pointer-events: none;
+      transition: border-color .3s;
+    }
+    .roster-card:hover .roster-card-border { border-color: rgba(214,0,248,.3); }
+
+    /* ─── MANAGEMENT ─────────────────────────── */
+    #management {
+      background: var(--black);
+      padding: 100px 80px;
+    }
+    .management-header {
+      margin-bottom: 56px;
+    }
+    .management-header h2 {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .management-header h2 em { font-style: normal; color: var(--accent); }
+    .management-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .mgmt-card {
+      background: var(--dark);
+      padding: 32px 28px;
+      cursor: pointer;
+      transition: background .25s;
+      position: relative;
+    }
+    .mgmt-card:hover { background: #1f1f1f; }
+    .mgmt-avatar {
+      width: 72px; height: 72px;
+      background: linear-gradient(135deg, rgba(214,0,248,.25), rgba(214,0,248,.05));
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Antonio', sans-serif;
+      font-size: 1.4rem; font-weight: 700;
+      color: rgba(214,0,248,.7);
+      margin-bottom: 20px;
+    }
+    .mgmt-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .95rem; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .mgmt-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .mgmt-bio-preview {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .8rem; color: var(--light);
+      line-height: 1.65;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .3s, transform .3s;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .mgmt-card:hover .mgmt-bio-preview { opacity: 1; transform: translateY(0); }
+    .mgmt-read {
+      display: inline-block;
+      margin-top: 16px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0; transform: translateY(8px);
+      transition: opacity .3s .05s, transform .3s .05s;
+    }
+    .mgmt-card:hover .mgmt-read { opacity: 1; transform: translateY(0); }
+    .mgmt-x {
+      position: absolute; top: 24px; right: 24px;
+      font-size: .8rem; color: var(--light);
+      opacity: 0; transition: opacity .25s;
+    }
+    .mgmt-card:hover .mgmt-x { opacity: 1; }
+
+    /* modal de bio */
+    .mgmt-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.88);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .mgmt-overlay.open { opacity: 1; pointer-events: all; }
+    .mgmt-modal {
+      background: var(--dark);
+      border: 1px solid rgba(214,0,248,.2);
+      max-width: 680px; width: 100%;
+      max-height: 85vh; overflow-y: auto;
+      padding: 48px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform .3s;
+    }
+    .mgmt-overlay.open .mgmt-modal { transform: translateY(0); }
+    .mgmt-modal-close {
+      position: absolute; top: 20px; right: 20px;
+      background: rgba(255,255,255,.08); border: none;
+      width: 36px; height: 36px; border-radius: 50%;
+      color: var(--white); font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .mgmt-modal-close:hover { background: rgba(255,255,255,.15); }
+    .mgmt-modal-avatar {
+      width: 80px; height: 80px;
+      background: linear-gradient(135deg, rgba(214,0,248,.3), rgba(214,0,248,.08));
+      clip-path: polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Antonio', sans-serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: rgba(214,0,248,.8);
+      margin-bottom: 20px;
+    }
+    .mgmt-modal-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;
+    }
+    .mgmt-modal-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 24px;
+    }
+    .mgmt-modal-bio {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .88rem; color: var(--light);
+      line-height: 1.8;
+    }
+    .mgmt-modal-divider {
+      width: 48px; height: 2px;
+      background: var(--accent);
+      margin: 20px 0;
+    }
+
+    /* ─── CONTACT ────────────────────────────── */
+    #contact {
+      background: var(--dark);
+      padding: 100px 80px;
+    }
+    .contact-inner { max-width: 700px; margin: 0 auto; }
+    .contact-inner h2 {
+      font-family: 'Antonio', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; margin-bottom: 40px;
+      text-align: center;
+    }
+    .form-field {
+      margin-bottom: 20px;
+    }
+    .form-field label {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--light); margin-bottom: 8px;
+    }
+    .form-field label span { color: var(--accent); }
+    .form-field input,
+    .form-field textarea {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.12);
+      border-bottom-color: rgba(255,255,255,.3);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .92rem;
+      padding: 14px 16px;
+      outline: none;
+      transition: border-color .2s, background .2s;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus {
+      border-color: var(--accent);
+      background: rgba(214,0,248,.04);
+    }
+    .form-field input::placeholder,
+    .form-field textarea::placeholder { color: rgba(255,255,255,.25); }
+    .form-field textarea { resize: vertical; min-height: 130px; }
+    .form-success {
+      display: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem; color: #4ade80;
+      text-align: center; padding: 16px;
+      background: rgba(74,222,128,.08);
+      border: 1px solid rgba(74,222,128,.2);
+      margin-top: 16px;
+    }
+    .form-error {
+      display: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem; color: #f87171;
+      text-align: center; padding: 16px;
+      background: rgba(248,113,113,.08);
+      border: 1px solid rgba(248,113,113,.2);
+      margin-top: 16px;
+    }
+
+    /* ─── FOOTER ─────────────────────────────── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid rgba(255,255,255,.06);
+      padding: 64px 80px 36px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 56px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-brand .nav-logo { margin-bottom: 20px; }
+    .footer-brand p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem; color: var(--light);
+      line-height: 1.75; max-width: 280px; margin-bottom: 28px;
+    }
+    .footer-socials { display: flex; gap: 12px; }
+    .footer-social-btn {
+      width: 38px; height: 38px;
+      background: var(--dark);
+      border: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; color: var(--light);
+      cursor: pointer;
+      clip-path: polygon(8% 0%,100% 0%,92% 100%,0% 100%);
+      transition: background .2s, color .2s;
+    }
+    .footer-social-btn:hover { background: var(--accent); color: #fff; }
+    .footer-col h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .78rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--white); margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col ul li a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .85rem; color: var(--light);
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--accent); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px; margin-top: 36px;
+    }
+    .footer-bottom p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .75rem; color: rgba(255,255,255,.3);
+    }
+    .footer-bottom a { color: var(--accent); }
+
+    /* ─── ANIMATIONS ─────────────────────────── */
+    .anim-up {
+      opacity: 0; transform: translate3d(0, 16px, 0);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .anim-up.in { opacity: 1; transform: translate3d(0,0,0); }
+
+    /* ─── LOJA (products page section) ──────── */
+    #loja {
+      background: var(--black);
+      padding: 100px 80px;
+    }
+    .loja-inner { max-width: 1300px; margin: 0 auto; }
+    .loja-top {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 56px; flex-wrap: wrap; gap: 24px;
+    }
+    .filter-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .filter-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase;
+      padding: 8px 18px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.15);
+      color: var(--light);
+      cursor: pointer;
+      clip-path: polygon(8% 0%,100% 0%,92% 100%,0% 100%);
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: rgba(214,0,248,.15);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .product-card {
+      background: var(--dark);
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: background .25s;
+    }
+    .product-card:hover { background: #1e1e1e; }
+    .product-card:hover .product-img-art { transform: scale(1.04); }
+    .product-card:hover .product-quick { transform: translateY(0); opacity: 1; }
+    .product-img {
+      aspect-ratio: 1/1;
+      background: var(--black);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .product-img-art {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      transition: transform .4s;
+    }
+    .product-img-icon { font-size: 3.5rem; filter: drop-shadow(0 0 16px rgba(214,0,248,.3)); }
+    .product-img-sublabel {
+      font-family: 'Antonio', sans-serif;
+      font-size: .75rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(214,0,248,.35);
+    }
+    .product-quick {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: var(--accent);
+      border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .72rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: #fff; padding: 11px;
+      transform: translateY(100%); opacity: 0;
+      transition: transform .3s, opacity .3s;
+      text-align: center;
+    }
+    .product-quick:hover { background: #bf00df; }
+    .product-badge {
+      position: absolute; top: 10px; left: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: .62rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 3px 10px;
+      clip-path: polygon(6% 0%,100% 0%,94% 100%,0% 100%);
+    }
+    .badge-new { background: var(--accent); color: #fff; }
+    .badge-hot { background: #f59e0b; color: #000; }
+    .product-info { padding: 20px 20px 24px; }
+    .product-cat {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .64rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 6px;
+    }
+    .product-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: .88rem; font-weight: 700;
+      line-height: 1.3; margin-bottom: 10px;
+    }
+    .product-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .product-price {
+      font-family: 'Antonio', sans-serif;
+      font-size: 1.25rem; font-weight: 700;
+    }
+    .product-price-old {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .75rem; color: var(--light);
+      text-decoration: line-through; margin-left: 6px;
+    }
+    .product-colors { display: flex; gap: 5px; }
+    .color-swatch {
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 1.5px solid transparent;
+      cursor: pointer; transition: border-color .2s;
+    }
+    .color-swatch:hover { border-color: var(--white); }
+
+    /* product modal */
+    .p-overlay {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(0,0,0,.9);
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s;
+    }
+    .p-overlay.open { opacity: 1; pointer-events: all; }
+    .p-modal {
+      background: var(--dark);
+      border: 1px solid rgba(214,0,248,.2);
+      max-width: 800px; width: 100%;
+      max-height: 88vh; overflow-y: auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform .3s;
+    }
+    .p-overlay.open .p-modal { transform: translateY(0); }
+    .p-modal-img {
+      background: var(--black);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px; min-height: 360px;
+    }
+    .p-modal-img .big-icon { font-size: 6rem; filter: drop-shadow(0 0 30px rgba(214,0,248,.4)); }
+    .p-modal-body { padding: 44px 36px; display: flex; flex-direction: column; gap: 14px; }
+    .p-close {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(255,255,255,.08); border: none;
+      width: 36px; height: 36px; border-radius: 50%;
+      color: var(--white); font-size: 1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .p-close:hover { background: rgba(255,255,255,.15); }
+    .p-modal-cat { font-family:'DM Sans',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
+    .p-modal-title { font-family:'Antonio',sans-serif; font-size:1.7rem; font-weight:700; text-transform:uppercase; line-height:1.1; }
+    .p-modal-price { font-family:'Antonio',sans-serif; font-size:2rem; font-weight:700; color:var(--accent); }
+    .p-modal-desc { font-family:'DM Sans',sans-serif; font-size:.84rem; color:var(--light); line-height:1.75; }
+    .p-label { font-family:'DM Sans',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--light); margin-bottom:8px; }
+    .p-sizes { display:flex; gap:8px; flex-wrap:wrap; }
+    .p-size-btn {
+      font-family:'DM Sans',sans-serif; font-size:.75rem; font-weight:700;
+      padding:7px 14px; background:var(--black);
+      border:1px solid rgba(255,255,255,.15);
+      color:var(--light); cursor:pointer;
+      clip-path:polygon(5% 0%,100% 0%,95% 100%,0% 100%);
+      transition:border-color .2s, color .2s, background .2s;
+    }
+    .p-size-btn:hover, .p-size-btn.active { border-color:var(--accent); color:var(--white); background:rgba(214,0,248,.12); }
+    .p-add-btn {
+      margin-top:8px; width:100%; padding:15px;
+      background:var(--accent); border:none; cursor:pointer;
+      font-family:'DM Sans',sans-serif; font-size:.82rem; font-weight:700;
+      letter-spacing:.12em; text-transform:uppercase; color:#fff;
+      clip-path:polygon(8% 0%,100% 0%,92% 100%,0% 100%);
+      transition:background .2s, transform .15s;
+    }
+    .p-add-btn:hover { background:#bf00df; transform:translateY(-2px); }
+
+    /* cart badge */
+    .cart-wrap { position:relative; }
+    .cart-num {
+      position:absolute; top:-8px; right:-8px;
+      width:18px; height:18px; border-radius:50%;
+      background:var(--accent); color:#fff;
+      font-family:'DM Sans',sans-serif; font-size:.6rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      opacity:0; transform:scale(0);
+      transition:opacity .25s, transform .25s;
+    }
+    .cart-num.show { opacity:1; transform:scale(1); }
+
+    /* toast */
+    #toast {
+      position:fixed; bottom:28px; left:50%; transform:translateX(-50%);
+      background:var(--dark); border:1px solid var(--accent);
+      color:var(--white); font-family:'DM Sans',sans-serif;
+      font-size:.8rem; font-weight:600; padding:12px 24px;
+      z-index:2000; opacity:0; transition:opacity .3s;
+      white-space:nowrap;
+      clip-path:polygon(8% 0%,100% 0%,92% 100%,0% 100%);
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 1024px) {
+      #nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-store { display: none; }
+      .nav-hamburger { display: flex; }
+      #hero { padding: 110px 32px 64px; }
+      .hero-diagonal, .hero-diagonal-accent, .hero-img-bg { display: none; }
+      .section-two-col { grid-template-columns: 1fr; min-height: auto; }
+      .section-two-col.reverse { direction: ltr; }
+      .col-img { min-height: 280px; }
+      .col-text { padding: 56px 32px; }
+      #roster { padding: 72px 32px; }
+      .roster-grid { grid-template-columns: repeat(2, 1fr); }
+      #management { padding: 72px 32px; }
+      .management-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 56px 32px 28px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .section-full { padding: 56px 32px; }
+      #loja { padding: 72px 32px; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      #contact { padding: 72px 32px; }
+    }
+    @media (max-width: 640px) {
+      .roster-grid { grid-template-columns: repeat(2, 1fr); }
+      .management-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .p-modal { grid-template-columns: 1fr; }
+      .p-modal-img { min-height: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAVBAR ─────────────────────────────── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="hex">V7</div>
+    VINCE SEVEN
+  </a>
+  <ul class="nav-links">
+    <li><a href="#sobre-nos">Sobre Nós</a></li>
+    <li><a href="#management">Diretoria</a></li>
+    <li><a href="#contact">Contato</a></li>
+    <li><a href="#criadores">Criadores</a></li>
+    <li><a href="#esports">Esports</a></li>
+    <li><a href="#loja">Loja</a></li>
+    <li><a href="#" target="_blank">Discord</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="cart-wrap">
+      <button onclick="toggleCart()" style="background:none;border:none;cursor:pointer;color:var(--light);font-size:1.1rem;padding:4px 8px;transition:color .2s;" title="Carrinho">🛒</button>
+      <div class="cart-num" id="cartNum">0</div>
+    </div>
+    <a href="#loja" class="nav-store">Loja</a>
+  </div>
+  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- mobile menu -->
+<div class="nav-mobile" id="mobileNav">
+  <a href="#sobre-nos" onclick="closeMob()">Sobre Nós</a>
+  <a href="#management" onclick="closeMob()">Diretoria</a>
+  <a href="#contact" onclick="closeMob()">Contato</a>
+  <a href="#criadores" onclick="closeMob()">Criadores</a>
+  <a href="#esports" onclick="closeMob()">Esports</a>
+  <a href="#loja" onclick="closeMob()">Loja</a>
+  <a href="#" target="_blank">Discord</a>
+</div>
+
+<!-- ─── HERO ──────────────────────────────── -->
+<section id="hero">
+  <div class="hero-diagonal"></div>
+  <div class="hero-diagonal-accent"></div>
+  <div class="hero-img-bg">
+    <div class="hero-img-bg-inner">
+      <div class="hero-gfx">
+        <div class="hero-gfx-hex">V7</div>
+        <div class="hero-gfx-ring"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-content anim-up">
+    <div class="hero-eyebrow">Organização Brasileira de Esports 🇧🇷</div>
+    <h1 class="hero-title">
+      REVELANDO E
+      <em>desenvolvendo</em>
+      <strong>TALENTOS EXCEPCIONAIS</strong>
+    </h1>
+    <div class="hero-sub">
+      A Vince Seven Esports é uma organização brasileira de gaming focada em
+      competição de alto nível e criação de conteúdo.
+      <ul>
+        <li>Formando e representando atletas de elite no cenário nacional</li>
+        <li>Construindo parcerias únicas no esports, entretenimento e tecnologia</li>
+      </ul>
+    </div>
+    <div class="hero-btns">
+      <a href="#loja" class="btn-diag">Loja</a>
+      <a href="#sobre-nos" class="btn-diag-outline">Saiba Mais</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CRIADORES & INFLUENCIADORES ──────── -->
+<section id="criadores" class="section-two-col">
+  <div class="col-text">
+    <div class="eyebrow anim-up">Conteúdo</div>
+    <h2 class="sec-title anim-up">CRIADORES &amp;<br/>INFLUENCIADORES</h2>
+    <div class="sec-stat anim-up">500K+</div>
+    <div class="sec-stat-label anim-up">Seguidores combinados</div>
+    <p class="sec-body anim-up">
+      A Vince Seven reúne criadores de conteúdo e streamers apaixonados por gaming.
+      Nossa rede de talentos produz conteúdo autêntico, conectando marcas a uma
+      audiência engajada e apaixonada pelo universo gamer brasileiro.
+    </p>
+    <a href="#contact" class="btn-diag-outline anim-up">Saiba mais</a>
+  </div>
+  <div class="col-img">
+    <div class="col-img-inner" style="background:linear-gradient(135deg,#0d000f,#1a001e);">
+      <div class="col-img-art">
+        <div class="art-icon">📱</div>
+        <div class="art-label">Criadores V7</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RAINBOW SIX SIEGE ─────────────────── -->
+<section id="r6" class="section-two-col reverse">
+  <div class="col-text dark">
+    <div class="eyebrow anim-up">Jogo Principal</div>
+    <h2 class="sec-title anim-up">RAINBOW SIX<br/>SIEGE</h2>
+    <p class="sec-body anim-up">
+      Nosso time de Rainbow Six Siege compete no cenário nacional de alto nível,
+      com foco em desenvolvimento tático e performance de elite. Com comissão
+      técnica dedicada e jogadores de alto nível, a V7 busca constantemente
+      alcançar o Tier 1 do esports brasileiro.
+    </p>
+    <a href="#esports" class="btn-diag-outline anim-up">Ver time</a>
+  </div>
+  <div class="col-img">
+    <div class="col-img-inner" style="background:linear-gradient(135deg,#000,#190010);">
+      <div class="col-img-art">
+        <div class="art-icon">🛡️</div>
+        <div class="art-label">R6 Siege — V7</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ESPORTS FULL WIDTH ────────────────── -->
+<section id="esports" class="section-full" style="background:var(--dark);">
+  <div class="section-full-bg">
+    <div style="width:100%;height:100%;background:linear-gradient(135deg,#0d000f 0%,#190010 40%,#0a0a0a 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px;">
+      <div style="font-size:8rem;opacity:.08;font-family:'Antonio',sans-serif;font-weight:700;letter-spacing:.1em;position:absolute;">V7</div>
+      <div style="font-size:5rem;filter:drop-shadow(0 0 40px rgba(214,0,248,.5));">🏆</div>
+    </div>
+  </div>
+  <div class="section-full-gradient"></div>
+  <div class="section-full-content anim-up">
+    <div class="eyebrow">Competição</div>
+    <h2 class="sec-title">V7 ESPORTS</h2>
+    <p class="sec-body" style="margin-bottom:28px;">
+      A casa do esports brasileiro competitivo. Nossa equipe de profissionais
+      compete nas melhores ligas nacionais de Rainbow Six Siege, representando
+      o Brasil com garra, inteligência e dedicação.
+    </p>
+    <a href="#roster" class="btn-diag">Ver elenco</a>
+  </div>
+</section>
+
+<!-- ─── LOJA / MERCHANDISE ────────────────── -->
+<section class="section-two-col">
+  <div class="col-img" style="order:1;">
+    <div class="col-img-inner" style="background:linear-gradient(135deg,#0d000f,#1a001e);">
+      <div class="col-img-art">
+        <div class="art-icon" style="font-size:5rem;">🧥</div>
+        <div class="art-label">Merch V7</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-text dark" style="order:2;">
+    <div class="eyebrow anim-up">Merch Oficial</div>
+    <h2 class="sec-title anim-up">VINCE SEVEN<br/>MERCHANDISE</h2>
+    <p class="sec-body anim-up">
+      Vista as cores da V7. Nossa linha de produtos oficiais representa a identidade
+      da organização — do campo de batalha ao dia a dia. Camisetas, hoodies, bonés
+      e acessórios exclusivos para os verdadeiros fãs da V7.
+    </p>
+    <a href="#loja" class="btn-diag anim-up">Ver loja</a>
+  </div>
+</section>
+
+<!-- ─── ACADEMIA / BOOTCAMP ───────────────── -->
+<section id="sobre-nos" class="section-two-col reverse">
+  <div class="col-text">
+    <div class="eyebrow anim-up">Desenvolvimento</div>
+    <h2 class="sec-title anim-up">ACADEMIA V7</h2>
+    <p class="sec-body anim-up">
+      Onde jogadores emergentes e veteranos transformam talento bruto em
+      performance de elite! A Academia V7 oferece análise de gameplay,
+      coaching especializado e mentorias para quem quer evoluir no esports brasileiro.
+    </p>
+    <a href="#contact" class="btn-diag-outline anim-up">Saiba mais</a>
+  </div>
+  <div class="col-img">
+    <div class="col-img-inner" style="background:linear-gradient(135deg,#000,#190010);">
+      <div class="col-img-art">
+        <div class="art-icon">🎮</div>
+        <div class="art-label">Academia V7</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMUNIDADE ────────────────────────── -->
+<section class="section-two-col">
+  <div class="col-img">
+    <div class="col-img-inner" style="background:linear-gradient(135deg,#0d000f,#1a001e);">
+      <div class="col-img-art">
+        <div class="art-icon">🤝</div>
+        <div class="art-label">Comunidade V7</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-text dark">
+    <div class="eyebrow anim-up">Comunidade</div>
+    <h2 class="sec-title anim-up">COMUNIDADE<br/>V7</h2>
+    <p class="sec-body anim-up">
+      A torcida da V7 é parte do time. Construímos uma comunidade apaixonada e
+      engajada no Discord, nas redes sociais e nos eventos presenciais.
+      Faça parte dessa família e represente o esports brasileiro com a gente.
+    </p>
+    <a href="#" target="_blank" class="btn-diag-outline anim-up">Entrar no Discord</a>
+  </div>
+</section>
+
+<!-- ─── ROSTER ────────────────────────────── -->
+<section id="roster">
+  <div class="roster-header anim-up">
+    <h2>O time da <em>Vince Seven</em></h2>
+    <p>Conheça os atletas que vestem a camisa da V7 e representam o Brasil nos servidores</p>
+  </div>
+  <div class="roster-grid">
+    <div class="roster-card anim-up">
+      <div class="roster-card-bg">
+        <div class="roster-card-avatar">
+          <div class="av-hex">SZ</div>
+        </div>
+      </div>
+      <div class="roster-card-overlay">
+        <div class="roster-card-nick">SouzaaR6s</div>
+        <div class="roster-card-role">IGL — Líder de Jogo</div>
+      </div>
+      <div class="roster-card-border"></div>
+    </div>
+    <div class="roster-card anim-up">
+      <div class="roster-card-bg">
+        <div class="roster-card-avatar">
+          <div class="av-hex">RM</div>
+        </div>
+      </div>
+      <div class="roster-card-overlay">
+        <div class="roster-card-nick">Romeo</div>
+        <div class="roster-card-role">Entry Fragger</div>
+      </div>
+      <div class="roster-card-border"></div>
+    </div>
+    <div class="roster-card anim-up">
+      <div class="roster-card-bg">
+        <div class="roster-card-avatar">
+          <div class="av-hex">NK</div>
+        </div>
+      </div>
+      <div class="roster-card-overlay">
+        <div class="roster-card-nick">Naka</div>
+        <div class="roster-card-role">Support</div>
+      </div>
+      <div class="roster-card-border"></div>
+    </div>
+    <div class="roster-card anim-up">
+      <div class="roster-card-bg">
+        <div class="roster-card-avatar">
+          <div class="av-hex">?</div>
+        </div>
+      </div>
+      <div class="roster-card-overlay">
+        <div class="roster-card-nick">Em Breve</div>
+        <div class="roster-card-role">Flex</div>
+      </div>
+      <div class="roster-card-border"></div>
+    </div>
+    <div class="roster-card anim-up">
+      <div class="roster-card-bg">
+        <div class="roster-card-avatar">
+          <div class="av-hex">?</div>
+        </div>
+      </div>
+      <div class="roster-card-overlay">
+        <div class="roster-card-nick">Em Breve</div>
+        <div class="roster-card-role">Roamer</div>
+      </div>
+      <div class="roster-card-border"></div>
+    </div>
+    <div class="roster-card anim-up">
+      <div class="roster-card-bg">
+        <div class="roster-card-avatar">
+          <div class="av-hex">C1</div>
+        </div>
+      </div>
+      <div class="roster-card-overlay">
+        <div class="roster-card-nick">Coach V7</div>
+        <div class="roster-card-role">Treinador</div>
+      </div>
+      <div class="roster-card-border"></div>
+    </div>
+    <div class="roster-card anim-up">
+      <div class="roster-card-bg">
+        <div class="roster-card-avatar">
+          <div class="av-hex">AN</div>
+        </div>
+      </div>
+      <div class="roster-card-overlay">
+        <div class="roster-card-nick">Analyst</div>
+        <div class="roster-card-role">Analista</div>
+      </div>
+      <div class="roster-card-border"></div>
+    </div>
+    <div class="roster-card anim-up">
+      <div class="roster-card-bg">
+        <div class="roster-card-avatar">
+          <div class="av-hex">MG</div>
+        </div>
+      </div>
+      <div class="roster-card-overlay">
+        <div class="roster-card-nick">Manager</div>
+        <div class="roster-card-role">Gerente do Time</div>
+      </div>
+      <div class="roster-card-border"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MANAGEMENT ────────────────────────── -->
+<section id="management">
+  <div class="management-header anim-up">
+    <h2>Time de <em>gestão</em> da V7</h2>
+  </div>
+  <div class="management-grid">
+
+    <div class="mgmt-card anim-up" onclick="openMgmt(0)">
+      <div class="mgmt-avatar">DI</div>
+      <div class="mgmt-name">Diretor Executivo</div>
+      <div class="mgmt-role">CEO</div>
+      <div class="mgmt-bio-preview">
+        Líder visionário com experiência em esports brasileiro, responsável pela
+        estratégia geral e crescimento da Vince Seven Esports.
+      </div>
+      <span class="mgmt-read">Ler mais →</span>
+      <span class="mgmt-x">𝕏</span>
+    </div>
+
+    <div class="mgmt-card anim-up" onclick="openMgmt(1)">
+      <div class="mgmt-avatar">GO</div>
+      <div class="mgmt-name">Gerente de Operações</div>
+      <div class="mgmt-role">COO</div>
+      <div class="mgmt-bio-preview">
+        Responsável por toda a estrutura operacional da V7, garantindo que
+        atletas e equipes tenham o suporte necessário para performar no mais alto nível.
+      </div>
+      <span class="mgmt-read">Ler mais →</span>
+      <span class="mgmt-x">𝕏</span>
+    </div>
+
+    <div class="mgmt-card anim-up" onclick="openMgmt(2)">
+      <div class="mgmt-avatar">GC</div>
+      <div class="mgmt-name">Gerente Comercial</div>
+      <div class="mgmt-role">CCO</div>
+      <div class="mgmt-bio-preview">
+        Responsável pelas parcerias, patrocínios e estratégias comerciais que
+        sustentam e expandem o alcance da Vince Seven no mercado de esports.
+      </div>
+      <span class="mgmt-read">Ler mais →</span>
+      <span class="mgmt-x">𝕏</span>
+    </div>
+
+    <div class="mgmt-card anim-up" onclick="openMgmt(3)">
+      <div class="mgmt-avatar">HC</div>
+      <div class="mgmt-name">Head de Conteúdo</div>
+      <div class="mgmt-role">Conteúdo</div>
+      <div class="mgmt-bio-preview">
+        Coordena todos os criadores e influenciadores da V7, desenvolvendo
+        estratégias de conteúdo para engajar a comunidade e crescer nas redes sociais.
+      </div>
+      <span class="mgmt-read">Ler mais →</span>
+      <span class="mgmt-x">𝕏</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- management modal -->
+<div class="mgmt-overlay" id="mgmtOverlay" onclick="closeMgmtOutside(event)">
+  <div class="mgmt-modal">
+    <button class="mgmt-modal-close" onclick="closeMgmt()">✕</button>
+    <div class="mgmt-modal-avatar" id="mAvatar">DI</div>
+    <div class="mgmt-modal-name" id="mName">Diretor Executivo</div>
+    <div class="mgmt-modal-role" id="mRole">CEO</div>
+    <div class="mgmt-modal-divider"></div>
+    <div class="mgmt-modal-bio" id="mBio"></div>
+  </div>
+</div>
+
+<!-- ─── LOJA ──────────────────────────────── -->
+<section id="loja">
+  <div class="loja-inner">
+    <div class="loja-top">
+      <div>
+        <div class="eyebrow">Merch Oficial</div>
+        <h2 class="sec-title" style="font-size:clamp(2rem,3.5vw,2.8rem);">LOJA V7</h2>
+      </div>
+      <div class="filter-row">
+        <button class="filter-btn active" onclick="filterProd('all',this)">Todos</button>
+        <button class="filter-btn" onclick="filterProd('vestuario',this)">Vestuário</button>
+        <button class="filter-btn" onclick="filterProd('acessorios',this)">Acessórios</button>
+        <button class="filter-btn" onclick="filterProd('lifestyle',this)">Lifestyle</button>
+      </div>
+    </div>
+    <div class="products-grid" id="productsGrid">
+
+      <div class="product-card" data-cat="vestuario" onclick="openProd(0)">
+        <div class="product-badge badge-new">Novo</div>
+        <div class="product-img">
+          <div class="product-img-art">
+            <div class="product-img-icon">👕</div>
+            <div class="product-img-sublabel">V7 — 2026</div>
+          </div>
+          <button class="product-quick" onclick="event.stopPropagation();addCart('Camiseta Oficial V7')">+ Adicionar</button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Vestuário</div>
+          <div class="product-name">Camiseta Oficial V7 2026</div>
+          <div class="product-bottom">
+            <div><span class="product-price">R$ 119</span></div>
+            <div class="product-colors">
+              <div class="color-swatch" style="background:#000;border-color:#555;"></div>
+              <div class="color-swatch" style="background:#d600f8;"></div>
+              <div class="color-swatch" style="background:#ececec;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="vestuario" onclick="openProd(1)">
+        <div class="product-badge badge-hot">Destaque</div>
+        <div class="product-img">
+          <div class="product-img-art">
+            <div class="product-img-icon">🧥</div>
+            <div class="product-img-sublabel">V7 — Premium</div>
+          </div>
+          <button class="product-quick" onclick="event.stopPropagation();addCart('Hoodie V7 Pro')">+ Adicionar</button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Vestuário</div>
+          <div class="product-name">Hoodie V7 Pro — Edição Limitada</div>
+          <div class="product-bottom">
+            <div>
+              <span class="product-price">R$ 249</span>
+              <span class="product-price-old">R$ 299</span>
+            </div>
+            <div class="product-colors">
+              <div class="color-swatch" style="background:#000;border-color:#555;"></div>
+              <div class="color-swatch" style="background:#d600f8;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="acessorios" onclick="openProd(2)">
+        <div class="product-img">
+          <div class="product-img-art">
+            <div class="product-img-icon">🧢</div>
+            <div class="product-img-sublabel">V7 — Snapback</div>
+          </div>
+          <button class="product-quick" onclick="event.stopPropagation();addCart('Boné Snapback V7')">+ Adicionar</button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Acessórios</div>
+          <div class="product-name">Boné Snapback V7 Esports</div>
+          <div class="product-bottom">
+            <div><span class="product-price">R$ 89</span></div>
+            <div class="product-colors">
+              <div class="color-swatch" style="background:#000;border-color:#555;"></div>
+              <div class="color-swatch" style="background:#d600f8;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="vestuario" onclick="openProd(3)">
+        <div class="product-badge badge-new">Novo</div>
+        <div class="product-img">
+          <div class="product-img-art">
+            <div class="product-img-icon">👖</div>
+            <div class="product-img-sublabel">V7 — Jogger</div>
+          </div>
+          <button class="product-quick" onclick="event.stopPropagation();addCart('Calça Jogger V7')">+ Adicionar</button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Vestuário</div>
+          <div class="product-name">Calça Jogger V7 Coleção 2026</div>
+          <div class="product-bottom">
+            <div><span class="product-price">R$ 189</span></div>
+            <div class="product-colors">
+              <div class="color-swatch" style="background:#000;border-color:#555;"></div>
+              <div class="color-swatch" style="background:#191919;border-color:#555;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="acessorios" onclick="openProd(4)">
+        <div class="product-img">
+          <div class="product-img-art">
+            <div class="product-img-icon">🖱️</div>
+            <div class="product-img-sublabel">V7 — Gaming</div>
+          </div>
+          <button class="product-quick" onclick="event.stopPropagation();addCart('Mousepad V7 XL')">+ Adicionar</button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Acessórios</div>
+          <div class="product-name">Mousepad V7 XL Extended 90x40cm</div>
+          <div class="product-bottom">
+            <div><span class="product-price">R$ 79</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="acessorios" onclick="openProd(5)">
+        <div class="product-img">
+          <div class="product-img-art">
+            <div class="product-img-icon">🎒</div>
+            <div class="product-img-sublabel">V7 — Bag</div>
+          </div>
+          <button class="product-quick" onclick="event.stopPropagation();addCart('Mochila V7')">+ Adicionar</button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Acessórios</div>
+          <div class="product-name">Mochila V7 Gaming Edition</div>
+          <div class="product-bottom">
+            <div><span class="product-price">R$ 179</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="lifestyle" onclick="openProd(6)">
+        <div class="product-img">
+          <div class="product-img-art">
+            <div class="product-img-icon">☕</div>
+            <div class="product-img-sublabel">V7 — Caneca</div>
+          </div>
+          <button class="product-quick" onclick="event.stopPropagation();addCart('Caneca V7')">+ Adicionar</button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Lifestyle</div>
+          <div class="product-name">Caneca V7 Gaming 400ml</div>
+          <div class="product-bottom">
+            <div><span class="product-price">R$ 59</span></div>
+            <div class="product-colors">
+              <div class="color-swatch" style="background:#000;border-color:#555;"></div>
+              <div class="color-swatch" style="background:#d600f8;"></div>
+              <div class="color-swatch" style="background:#ececec;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card" data-cat="lifestyle" onclick="openProd(7)">
+        <div class="product-img">
+          <div class="product-img-art">
+            <div class="product-img-icon">🧣</div>
+            <div class="product-img-sublabel">V7 — Track</div>
+          </div>
+          <button class="product-quick" onclick="event.stopPropagation();addCart('Agasalho V7')">+ Adicionar</button>
+        </div>
+        <div class="product-info">
+          <div class="product-cat">Lifestyle</div>
+          <div class="product-name">Agasalho V7 Track Jacket</div>
+          <div class="product-bottom">
+            <div><span class="product-price">R$ 199</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- product modal -->
+<div class="p-overlay" id="prodOverlay" onclick="closeProdOutside(event)">
+  <div class="p-modal">
+    <button class="p-close" onclick="closeProd()">✕</button>
+    <div class="p-modal-img">
+      <div class="big-icon" id="pIcon">👕</div>
+    </div>
+    <div class="p-modal-body">
+      <div class="p-modal-cat" id="pCat"></div>
+      <div class="p-modal-title" id="pTitle"></div>
+      <div class="p-modal-price" id="pPrice"></div>
+      <div class="p-modal-desc" id="pDesc"></div>
+      <div id="pSizesWrap">
+        <div class="p-label">Tamanho</div>
+        <div class="p-sizes" id="pSizes"></div>
+      </div>
+      <button class="p-add-btn" id="pAddBtn">Adicionar ao Carrinho 🛒</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CONTACT ────────────────────────────── -->
+<section id="contact">
+  <div class="contact-inner">
+    <h2 class="anim-up">fale conosco</h2>
+    <form onsubmit="submitContact(event)">
+      <div class="form-field anim-up">
+        <label>Nome <span>*</span></label>
+        <input type="text" placeholder="Seu nome completo" required />
+      </div>
+      <div class="form-field anim-up">
+        <label>E-mail <span>*</span></label>
+        <input type="email" placeholder="seu@email.com" required />
+      </div>
+      <div class="form-field anim-up">
+        <label>Mensagem</label>
+        <textarea placeholder="Patrocínio, parceria, imprensa, recrutamento..."></textarea>
+      </div>
+      <div class="anim-up">
+        <button type="submit" class="btn-diag" style="width:100%;padding:15px 36px;text-align:center;">Enviar</button>
+      </div>
+      <div class="form-success" id="fSuccess">Obrigado! Entraremos em contato em breve.</div>
+      <div class="form-error" id="fError">Ops! Algo deu errado. Tente novamente.</div>
+    </form>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:16px;">
+        <div class="hex">V7</div>
+        VINCE SEVEN
+      </a>
+      <p>Organização brasileira de esports comprometida com a excelência competitiva e o desenvolvimento de talentos nacionais.</p>
+      <div class="footer-socials">
+        <a href="https://x.com/VinceSevenBR" target="_blank" class="footer-social-btn" title="Twitter">𝕏</a>
+        <a href="https://instagram.com/vincesevenbr" target="_blank" class="footer-social-btn" title="Instagram">📷</a>
+        <a href="#" class="footer-social-btn" title="YouTube">▶</a>
+        <a href="#" class="footer-social-btn" title="TikTok">♪</a>
+        <a href="#" class="footer-social-btn" title="Discord">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Organização</h4>
+      <ul>
+        <li><a href="#sobre-nos">Sobre Nós</a></li>
+        <li><a href="#management">Diretoria</a></li>
+        <li><a href="#contact">Contato</a></li>
+        <li><a href="#criadores">Criadores</a></li>
+        <li><a href="#esports">Esports</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Links</h4>
+      <ul>
+        <li><a href="#loja">Loja</a></li>
+        <li><a href="#" target="_blank">Entrar no Discord</a></li>
+        <li><a href="https://x.com/VinceSevenBR" target="_blank">Twitter / X</a></li>
+        <li><a href="https://instagram.com/vincesevenbr" target="_blank">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>©2026. Powered by <a href="#">Vince Seven Esports</a></p>
+    <p>Feito com 💜 para o esports brasileiro 🇧🇷</p>
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+  // ─── NAVBAR ───────────────────────────────
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 30);
+  });
+
+  // ─── HAMBURGER ────────────────────────────
+  const hbg = document.getElementById('hamburger');
+  const mNav = document.getElementById('mobileNav');
+  hbg.addEventListener('click', () => {
+    hbg.classList.toggle('open');
+    mNav.classList.toggle('open');
+  });
+  function closeMob() {
+    hbg.classList.remove('open');
+    mNav.classList.remove('open');
+  }
+
+  // ─── INTERSECTION OBSERVER ────────────────
+  const animEls = document.querySelectorAll('.anim-up');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  animEls.forEach(el => io.observe(el));
+
+  // ─── MANAGEMENT DATA & MODAL ──────────────
+  const mgmtData = [
+    {
+      av: 'DI', name: 'Diretor Executivo', role: 'CEO',
+      bio: 'Líder visionário à frente da Vince Seven Esports desde a fundação. Com vasta experiência no cenário competitivo brasileiro, é responsável pela visão estratégica, crescimento da organização e consolidação da V7 como uma das principais organizações de esports do Brasil. Apaixonado por gaming desde sempre, acredita no potencial do esports nacional para competir com o mundo.'
+    },
+    {
+      av: 'GO', name: 'Gerente de Operações', role: 'COO',
+      bio: 'Responsável por toda a estrutura operacional da Vince Seven, garantindo que atletas, comissão técnica e equipe de suporte tenham as melhores condições para performar. Coordena os processos internos, logística de eventos e a gestão diária da organização, sempre com foco em eficiência e excelência.'
+    },
+    {
+      av: 'GC', name: 'Gerente Comercial', role: 'CCO',
+      bio: 'À frente das parcerias estratégicas e patrocínios da V7, o Gerente Comercial conecta marcas ao universo do esports brasileiro com inteligência e resultados. É responsável por todas as negociações comerciais, contratos e pelo desenvolvimento do portfólio de patrocinadores que sustenta e expande o alcance da organização.'
+    },
+    {
+      av: 'HC', name: 'Head de Conteúdo', role: 'Conteúdo',
+      bio: 'Coordena toda a estratégia de conteúdo digital da Vince Seven, desde os criadores e streamers até as redes sociais oficiais da organização. Com olhar apurado para tendências e engajamento, o Head de Conteúdo é responsável por ampliar o alcance da V7 e construir a marca da organização junto à comunidade gamer brasileira.'
+    }
+  ];
+
+  function openMgmt(idx) {
+    const m = mgmtData[idx];
+    document.getElementById('mAvatar').textContent = m.av;
+    document.getElementById('mName').textContent = m.name;
+    document.getElementById('mRole').textContent = m.role;
+    document.getElementById('mBio').textContent = m.bio;
+    document.getElementById('mgmtOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMgmt() {
+    document.getElementById('mgmtOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeMgmtOutside(e) {
+    if (e.target === document.getElementById('mgmtOverlay')) closeMgmt();
+  }
+
+  // ─── PRODUCTS DATA & MODAL ────────────────
+  const prodsData = [
+    { icon:'👕', cat:'Vestuário', title:'Camiseta Oficial V7 2026', price:'R$ 119', desc:'Camiseta 100% algodão penteado com estampa exclusiva da Vince Seven Esports. Corte regular fit, leveza e conforto para o dia a dia.', sizes:['P','M','G','GG','XGG'] },
+    { icon:'🧥', cat:'Vestuário', title:'Hoodie V7 Pro — Edição Limitada', price:'R$ 249', desc:'Moletom premium com capuz, bolso canguru e interior felpudo. Bordado com escudo V7 no peito. Edição limitada — estoque restrito.', sizes:['P','M','G','GG'] },
+    { icon:'🧢', cat:'Acessórios', title:'Boné Snapback V7 Esports', price:'R$ 89', desc:'Boné snapback com bordado 3D do logo V7 na frente e ajuste traseiro. Aba plana ou curva ao gosto do usuário.', sizes:[] },
+    { icon:'👖', cat:'Vestuário', title:'Calça Jogger V7 Coleção 2026', price:'R$ 189', desc:'Calça jogger com elástico na cintura e tornozelos, bolsos laterais e símbolo V7 bordado. Tecido moletom premium.', sizes:['P','M','G','GG'] },
+    { icon:'🖱️', cat:'Acessórios', title:'Mousepad V7 XL Extended', price:'R$ 79', desc:'Mousepad extended 90x40cm com base antiderrapante, superfície de baixo atrito e arte exclusiva da Vince Seven.', sizes:[] },
+    { icon:'🎒', cat:'Acessórios', title:'Mochila V7 Gaming Edition', price:'R$ 179', desc:'Mochila com compartimento acolchoado para notebook até 17", bolso frontal organizado, porta USB externa e estampa exclusiva V7.', sizes:[] },
+    { icon:'☕', cat:'Lifestyle', title:'Caneca V7 Gaming 400ml', price:'R$ 59', desc:'Caneca cerâmica 400ml com logo V7. Ideal para aquecer as longas sessões de treino.', sizes:[] },
+    { icon:'🧣', cat:'Lifestyle', title:'Agasalho V7 Track Jacket', price:'R$ 199', desc:'Jaqueta estilo track com zíper completo, bolsos laterais e logo V7 bordado. Tecido leve e resistente.', sizes:['P','M','G','GG'] }
+  ];
+
+  function openProd(idx) {
+    const p = prodsData[idx];
+    document.getElementById('pIcon').textContent = p.icon;
+    document.getElementById('pCat').textContent = p.cat;
+    document.getElementById('pTitle').textContent = p.title;
+    document.getElementById('pPrice').textContent = p.price;
+    document.getElementById('pDesc').textContent = p.desc;
+    const sizesEl = document.getElementById('pSizes');
+    const sizesWrap = document.getElementById('pSizesWrap');
+    sizesEl.innerHTML = '';
+    if (p.sizes.length) {
+      sizesWrap.style.display = '';
+      p.sizes.forEach((s, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'p-size-btn' + (i === 0 ? ' active' : '');
+        btn.textContent = s;
+        btn.onclick = function() {
+          sizesEl.querySelectorAll('.p-size-btn').forEach(b => b.classList.remove('active'));
+          this.classList.add('active');
+        };
+        sizesEl.appendChild(btn);
+      });
+    } else {
+      sizesWrap.style.display = 'none';
+    }
+    document.getElementById('pAddBtn').onclick = function() {
+      addCart(p.title); closeProd();
+    };
+    document.getElementById('prodOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeProd() {
+    document.getElementById('prodOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function closeProdOutside(e) {
+    if (e.target === document.getElementById('prodOverlay')) closeProd();
+  }
+
+  // ─── FILTERS ──────────────────────────────
+  function filterProd(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.product-card').forEach(c => {
+      c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+    });
+  }
+
+  // ─── CART ─────────────────────────────────
+  let cart = 0;
+  function addCart(name) {
+    cart++;
+    const n = document.getElementById('cartNum');
+    n.textContent = cart;
+    n.classList.add('show');
+    showToast('✓ ' + name + ' adicionado!');
+  }
+  function toggleCart() {
+    showToast(cart > 0 ? cart + ' item(ns) no carrinho' : 'Carrinho vazio');
+  }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.style.opacity = '1';
+    clearTimeout(t._t);
+    t._t = setTimeout(() => { t.style.opacity = '0'; }, 2600);
+  }
+
+  // ─── CONTACT ──────────────────────────────
+  function submitContact(e) {
+    e.preventDefault();
+    const s = document.getElementById('fSuccess');
+    s.style.display = 'block';
+    setTimeout(() => { s.style.display = 'none'; e.target.reset(); }, 4000);
+  }
+
+  // ─── ESC TO CLOSE MODALS ──────────────────
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeMgmt(); closeProd(); }
+  });
+</script>
+</body>
+</html>
